@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechPro.tg — Votre Univers Technologique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --bg:        #060810;
+      --bg2:       #0c0f1d;
+      --bg3:       #111527;
+      --card:      #0f1322;
+      --border:    rgba(0,210,255,0.12);
+      --accent:    #00d2ff;
+      --accent2:   #ff6b35;
+      --text:      #e8eaf0;
+      --text-muted:#7a80a0;
+      --danger:    #ff3b3b;
+      --success:   #00e676;
+      --radius:    14px;
+      --shadow:    0 8px 40px rgba(0,210,255,0.08);
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== BACKGROUND MESH ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 20%, rgba(0,210,255,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(255,107,53,0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 68px;
+      background: rgba(6,8,16,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--accent), #fff 60%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent2); -webkit-text-fill-color: var(--accent2); }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: .5px;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-actions { display: flex; gap: 12px; align-items: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      transition: all .2s;
+      text-decoration: none;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-accent {
+      background: linear-gradient(135deg, var(--accent), #0090d4);
+      color: #060810;
+    }
+    .btn-accent:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,210,255,0.35); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .cart-badge {
+      position: relative;
+    }
+    .cart-badge .badge {
+      position: absolute;
+      top: -6px; right: -6px;
+      background: var(--accent2);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+      min-width: 18px; height: 18px;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 4px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px 80px;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 70% at center, black 30%, transparent 80%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,210,255,0.08);
+      border: 1px solid rgba(0,210,255,0.25);
+      border-radius: 99px;
+      padding: 6px 18px;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+      animation: fadeUp .6s ease both;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.5)} }
+    .hero h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -1px;
+      margin-bottom: 22px;
+      animation: fadeUp .7s .1s ease both;
+    }
+    .hero h1 .hl { color: var(--accent); }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+      animation: fadeUp .7s .2s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp .7s .3s ease both;
+    }
+    .btn-lg { padding: 14px 32px; font-size: 1rem; border-radius: 10px; }
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 72px;
+      animation: fadeUp .7s .4s ease both;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .stat-label { font-size: .8rem; color: var(--text-muted); margin-top: 4px; letter-spacing: 1px; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+
+    /* ===== CATEGORIES BAR ===== */
+    .cat-bar {
+      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+      padding: 28px 20px;
+      position: relative; z-index: 1;
+    }
+    .cat-btn {
+      padding: 8px 22px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      font-size: .85rem;
+      font-weight: 600;
+      transition: all .2s;
+    }
+    .cat-btn:hover, .cat-btn.active {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    /* ===== SECTION ===== */
+    section { position: relative; z-index: 1; }
+    .section-header {
+      text-align: center;
+      padding: 20px 20px 36px;
+    }
+    .section-header h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .section-header p { color: var(--text-muted); margin-top: 10px; font-size: .95rem; }
+    .section-line {
+      display: block; width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 14px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ===== PRODUCT GRID ===== */
+    .products-section { padding: 0 20px 80px; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 22px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      cursor: pointer;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: rgba(0,210,255,0.3);
+    }
+    .product-card .badge-cat {
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(6,8,16,0.8);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      z-index: 2;
+    }
+    .product-card .badge-new {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--accent2);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: .7rem;
+      font-weight: 700;
+      color: #fff;
+      z-index: 2;
+    }
+    .product-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: var(--bg3);
+      display: block;
+      transition: transform .3s;
+    }
+    .product-card:hover .product-img { transform: scale(1.03); }
+    .product-info { padding: 16px 18px 18px; }
+    .product-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .product-desc {
+      font-size: .82rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .product-footer {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .product-price {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .product-price small { font-size: .7rem; color: var(--text-muted); font-family: 'Syne', sans-serif; font-weight: 500; }
+    .btn-cart {
+      background: rgba(0,210,255,0.1);
+      border: 1px solid rgba(0,210,255,0.3);
+      color: var(--accent);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: .8rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      transition: all .2s;
+    }
+    .btn-cart:hover { background: var(--accent); color: var(--bg); }
+
+    /* ===== CART PANEL ===== */
+    .cart-overlay {
+      display: none;
+      position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 200;
+    }
+    .cart-overlay.open { display: block; }
+    .cart-panel {
+      position: fixed;
+      right: 0; top: 0; bottom: 0;
+      width: 400px; max-width: 100vw;
+      background: var(--bg2);
+      border-left: 1px solid var(--border);
+      z-index: 201;
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform .3s ease;
+    }
+    .cart-panel.open { transform: none; }
+    .cart-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cart-head h3 { font-family: 'Orbitron', monospace; font-size: 1rem; font-weight: 700; }
+    .cart-body { flex: 1; overflow-y: auto; padding: 16px 24px; }
+    .cart-item {
+      display: flex; gap: 14px; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .cart-item img { width: 60px; height: 50px; object-fit: cover; border-radius: 8px; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-size: .88rem; font-weight: 700; }
+    .cart-item-price { font-size: .8rem; color: var(--accent); font-family: 'Orbitron', monospace; }
+    .cart-item-qty { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .qty-btn {
+      width: 24px; height: 24px; border-radius: 6px;
+      border: 1px solid var(--border); background: var(--bg3);
+      color: var(--text); cursor: pointer; font-size: .9rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .cart-remove { color: var(--danger); cursor: pointer; font-size: 1.1rem; background: none; border: none; }
+    .cart-footer {
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .cart-total {
+      display: flex; justify-content: space-between; margin-bottom: 16px;
+      font-family: 'Orbitron', monospace; font-size: 1rem;
+    }
+    .cart-empty { text-align: center; color: var(--text-muted); padding: 48px 0; font-size: .9rem; }
+
+    /* ===== ADMIN / LOGIN PANEL ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.75);
+      z-index: 300;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 40px;
+      width: 420px; max-width: 95vw;
+      box-shadow: 0 24px 80px rgba(0,0,0,.6);
+      animation: modalIn .3s ease;
+    }
+    @keyframes modalIn { from{opacity:0;transform:scale(.94)} to{opacity:1;transform:none} }
+    .modal h2 { font-family: 'Orbitron', monospace; font-size: 1.3rem; margin-bottom: 8px; }
+    .modal p { color: var(--text-muted); font-size: .88rem; margin-bottom: 28px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: .82rem; font-weight: 700; color: var(--text-muted); margin-bottom: 7px; letter-spacing: .5px; text-transform: uppercase; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 11px 14px;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-size: .9rem;
+      transition: border-color .2s;
+      outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-group select option { background: var(--bg3); }
+    .form-error { color: var(--danger); font-size: .82rem; margin-top: 12px; display: none; }
+    .form-error.show { display: block; }
+    .modal-footer { display: flex; gap: 10px; margin-top: 8px; }
+
+    /* ===== ADMIN DASHBOARD ===== */
+    .admin-bar {
+      display: none;
+      position: sticky; top: 68px; z-index: 90;
+      background: rgba(255,107,53,0.08);
+      border-bottom: 1px solid rgba(255,107,53,0.25);
+      padding: 10px 40px;
+      gap: 16px; align-items: center;
+    }
+    .admin-bar.active { display: flex; }
+    .admin-bar span {
+      font-size: .82rem; font-weight: 700;
+      color: var(--accent2); letter-spacing: .5px;
+    }
+    .admin-bar .admin-info { flex: 1; font-size: .8rem; color: var(--text-muted); }
+
+    /* ===== ADMIN PANEL (full product manager) ===== */
+    .admin-panel {
+      display: none;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px 80px;
+    }
+    .admin-panel.active { display: block; }
+    .admin-panel h2 { font-family: 'Orbitron', monospace; font-size: 1.5rem; margin-bottom: 28px; }
+    .admin-form-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 36px;
+    }
+    .admin-form-card h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem; margin-bottom: 22px;
+      color: var(--accent);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .admin-products-list h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem; margin-bottom: 16px;
+      color: var(--accent);
+    }
+    .admin-product-row {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+    }
+    .admin-product-row img { width: 60px; height: 50px; object-fit: cover; border-radius: 8px; }
+    .admin-product-row .info { flex: 1; }
+    .admin-product-row .info span { font-weight: 700; font-size: .9rem; }
+    .admin-product-row .info small { display: block; color: var(--text-muted); font-size: .78rem; }
+    .admin-product-row .price { font-family: 'Orbitron', monospace; font-size: .9rem; color: var(--accent); }
+    .btn-del { background: rgba(255,59,59,.1); border: 1px solid rgba(255,59,59,.3); color: var(--danger); padding: 6px 12px; border-radius: 7px; cursor: pointer; font-size: .8rem; font-family: 'Syne', sans-serif; font-weight: 700; transition: all .2s; }
+    .btn-del:hover { background: var(--danger); color: #fff; }
+
+    /* ===== ABOUT / FEATURES ===== */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto 80px;
+      padding: 0 20px;
+    }
+    .feat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: border-color .2s;
+    }
+    .feat-card:hover { border-color: rgba(0,210,255,0.3); }
+    .feat-icon { font-size: 2rem; margin-bottom: 14px; }
+    .feat-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .feat-card p { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 48px 40px 28px;
+      position: relative; z-index: 1;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+    }
+    .footer-brand .nav-logo { display: inline-block; margin-bottom: 14px; }
+    .footer-brand p { font-size: .85rem; color: var(--text-muted); line-height: 1.7; }
+    .footer-col h5 { font-family: 'Orbitron', monospace; font-size: .8rem; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 16px; text-transform: uppercase; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { color: var(--text-muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--accent); }
+    .footer-contact p { font-size: .85rem; color: var(--text-muted); margin-bottom: 8px; display: flex; gap: 8px; }
+    .footer-contact p span { color: var(--text); }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: .8rem; color: var(--text-muted);
+    }
+    .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 30px; right: 30px;
+      background: var(--bg2);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      padding: 14px 22px;
+      font-size: .88rem;
+      font-weight: 600;
+      z-index: 999;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all .35s ease;
+      max-width: 300px;
+    }
+    .toast.show { transform: none; opacity: 1; }
+    .toast.danger { border-color: var(--danger); }
+    .toast.success { border-color: var(--success); color: var(--success); }
+
+    /* ===== MODAL PRODUCT DETAIL ===== */
+    .detail-modal {
+      max-width: 640px; width: 94vw;
+      display: flex; flex-direction: column; gap: 0;
+      padding: 0; overflow: hidden;
+    }
+    .detail-img {
+      width: 100%; height: 260px;
+      object-fit: cover;
+    }
+    .detail-body { padding: 28px; }
+    .detail-body h2 { font-family: 'Orbitron', monospace; font-size: 1.3rem; margin-bottom: 8px; }
+    .detail-price { font-family: 'Orbitron', monospace; font-size: 1.6rem; color: var(--accent); margin-bottom: 14px; }
+    .detail-desc { color: var(--text-muted); font-size: .9rem; line-height: 1.7; margin-bottom: 22px; }
+    .detail-footer { display: flex; gap: 12px; }
+
+    /* ===== SCROLL BAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(0,210,255,0.2); border-radius: 3px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 28px; flex-wrap: wrap; justify-content: center; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================
+     NAVIGATION
+============================= -->
+<nav>
+  <a class="nav-logo" href="#">TECH<span>PRO</span><span style="color:var(--text-muted);-webkit-text-fill-color:var(--text-muted)">.tg</span></a>
+  <div class="nav-links">
+    <a href="#produits">Produits</a>
+    <a href="#features">Services</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-actions">
+    <button class="btn btn-ghost" id="btn-open-cart">
+      <span>🛒</span> Panier
+    </button>
+    <div class="cart-badge" style="display:none" id="cart-badge-wrap">
+      <span class="badge" id="cart-count">0</span>
+    </div>
+    <button class="btn btn-accent" id="btn-open-login">⚙ Admin</button>
+  </div>
+</nav>
+
+<!-- ADMIN BAR -->
+<div class="admin-bar" id="admin-bar">
+  <span>🔐 MODE ADMIN ACTIF</span>
+  <span class="admin-info">Vous pouvez ajouter, modifier ou supprimer des produits</span>
+  <button class="btn btn-ghost" id="btn-admin-panel">📦 Gérer les produits</button>
+  <button class="btn btn-danger btn-sm" id="btn-logout" style="padding:7px 14px;font-size:.82rem;">Déconnecter</button>
+</div>
+
+<!-- ============================
+     HERO
+============================= -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">🇹🇬 Lomé, Togo · Livraison Nationale</div>
+  <h1>L'Innovation<br>au <span class="hl">Cœur</span> du Togo</h1>
+  <p>Appareils photo, smartphones, PC, processeurs et bien plus — découvrez notre sélection de produits technologiques haut de gamme au meilleur prix.</p>
+  <div class="hero-btns">
+    <a href="#produits" class="btn btn-accent btn-lg">Explorer les Produits →</a>
+    <a href="#contact" class="btn btn-ghost btn-lg">Nous Contacter</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Produits</div></div>
+    <div class="stat"><div class="stat-num">1 500+</div><div class="stat-label">Clients Satisfaits</div></div>
+    <div class="stat"><div class="stat-num">5 ans</div><div class="stat-label">D'expertise</div></div>
+    <div class="stat"><div class="stat-num">24h</div><div class="stat-label">Support</div></div>
+  </div>
+</section>
+
+<!-- ============================
+     CATEGORIES
+============================= -->
+<div class="cat-bar" id="cat-bar">
+  <button class="cat-btn active" data-cat="all">Tout voir</button>
+  <button class="cat-btn" data-cat="smartphone">📱 Smartphones</button>
+  <button class="cat-btn" data-cat="photo">📷 Appareils Photo</button>
+  <button class="cat-btn" data-cat="pc">💻 PC & Laptops</button>
+  <button class="cat-btn" data-cat="cpu">🔧 Processeurs</button>
+  <button class="cat-btn" data-cat="tablette">📟 Tablettes</button>
+  <button class="cat-btn" data-cat="accessoire">🎧 Accessoires</button>
+</div>
+
+<!-- ============================
+     PRODUCTS
+============================= -->
+<section class="products-section" id="produits">
+  <div class="section-header">
+    <h2>Nos Produits</h2>
+    <p>Sélection rigoureuse des meilleures marques mondiales</p>
+    <span class="section-line"></span>
+  </div>
+  <div class="products-grid" id="products-grid"></div>
+</section>
+
+<!-- ============================
+     ADMIN PANEL (product manager)
+============================= -->
+<section class="admin-panel" id="admin-panel">
+  <h2>🛠 Gestion des Produits</h2>
+
+  <div class="admin-form-card">
+    <h3>+ Ajouter un nouveau produit</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nom du produit</label>
+        <input type="text" id="ap-name" placeholder="ex: iPhone 15 Pro Max" />
+      </div>
+      <div class="form-group">
+        <label>Catégorie</label>
+        <select id="ap-cat">
+          <option value="smartphone">Smartphone</option>
+          <option value="photo">Appareil Photo</option>
+          <option value="pc">PC & Laptop</option>
+          <option value="cpu">Processeur (CPU)</option>
+          <option value="tablette">Tablette</option>
+          <option value="accessoire">Accessoire</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Prix (FCFA)</label>
+        <input type="number" id="ap-price" placeholder="ex: 450000" />
+      </div>
+      <div class="form-group">
+        <label>URL de l'image</label>
+        <input type="text" id="ap-img" placeholder="https://..." />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="ap-desc" placeholder="Décrivez le produit..."></textarea>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn btn-accent" id="ap-submit">+ Ajouter le produit</button>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.85rem;color:var(--text-muted)">
+        <input type="checkbox" id="ap-new" style="width:auto" /> Marquer "Nouveau"
+      </label>
+    </div>
+  </div>
+
+  <div class="admin-products-list">
+    <h3>📦 Tous les produits (<span id="admin-count">0</span>)</h3>
+    <div id="admin-products-list"></div>
+  </div>
+</section>
+
+<!-- ============================
+     FEATURES
+============================= -->
+<section id="features">
+  <div class="section-header">
+    <h2>Pourquoi TechPro.tg ?</h2>
+    <p>Notre engagement envers la qualité et le service</p>
+    <span class="section-line"></span>
+  </div>
+  <div class="features">
+    <div class="feat-card">
+      <div class="feat-icon">🚚</div>
+      <h4>Livraison Rapide</h4>
+      <p>Livraison disponible dans tout le Togo sous 24 à 72h. Retrait possible à Lomé.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">✅</div>
+      <h4>Produits Garantis</h4>
+      <p>Tous nos produits sont originaux et accompagnés d'une garantie constructeur.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">💳</div>
+      <h4>Paiement Flexible</h4>
+      <p>Paiement Mobile Money (MTN, Moov), virement bancaire ou espèces à la livraison.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🛡</div>
+      <h4>Service Après-Vente</h4>
+      <p>Notre équipe technique vous assiste pour toute panne ou problème sur vos achats.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     FOOTER
+============================= -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#">TECH<span>PRO</span>.tg</a>
+      <p>Votre partenaire technologique de confiance au Togo. Nous vous offrons les meilleurs équipements électroniques à des prix compétitifs.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Produits</h5>
+      <ul>
+        <li><a href="#">Smartphones</a></li>
+        <li><a href="#">Appareils Photo</a></li>
+        <li><a href="#">PC & Laptops</a></li>
+        <li><a href="#">Processeurs</a></li>
+        <li><a href="#">Tablettes</a></li>
+        <li><a href="#">Accessoires</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Informations</h5>
+      <ul>
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Politique de retour</a></li>
+        <li><a href="#">Conditions générales</a></li>
+        <li><a href="#">Livraison & Frais</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-contact">
+      <h5>Contact</h5>
+      <p>📍 <span>Lomé, Togo</span></p>
+      <p>📞 <span>+228 XX XX XX XX</span></p>
+      <p>✉️ <span>contact@techpro.tg</span></p>
+      <p>🌐 <span><!-- IP: -->  </span></p>
+      <p style="margin-top:14px;font-size:.8rem;color:var(--text-muted)">Lun – Sam : 08h00 – 19h00</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 TechPro.tg — Tous droits réservés</span>
+    <span>Fait avec ❤ au Togo 🇹🇬</span>
+  </div>
+</footer>
+
+<!-- ============================
+     CART PANEL
+============================= -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-head">
+    <h3>🛒 Mon Panier</h3>
+    <button class="btn btn-ghost" id="btn-close-cart" style="padding:6px 12px">✕</button>
+  </div>
+  <div class="cart-body" id="cart-body">
+    <div class="cart-empty">Votre panier est vide</div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cart-total">0 FCFA</span>
+    </div>
+    <button class="btn btn-accent" style="width:100%;justify-content:center" onclick="placeOrder()">Commander →</button>
+  </div>
+</div>
+
+<!-- ============================
+     LOGIN MODAL
+============================= -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal">
+    <h2>🔐 Accès Admin</h2>
+    <p>Entrez vos identifiants pour accéder au panneau d'administration.</p>
+    <div class="form-group">
+      <label>Identifiant</label>
+      <input type="text" id="login-user" placeholder="admin" />
+    </div>
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <input type="password" id="login-pass" placeholder="••••••••" />
+    </div>
+    <div class="form-error" id="login-error">❌ Identifiants incorrects.</div>
+    <div class="modal-footer">
+      <button class="btn btn-accent" style="flex:1;justify-content:center" id="btn-login">Se connecter</button>
+      <button class="btn btn-ghost" id="btn-close-login">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal-overlay" id="detail-modal">
+  <div class="modal detail-modal">
+    <img id="detail-img" class="detail-img" src="" alt="" />
+    <div class="detail-body">
+      <div id="detail-cat" style="font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:8px"></div>
+      <h2 id="detail-name"></h2>
+      <div class="detail-price" id="detail-price"></div>
+      <div class="detail-desc" id="detail-desc"></div>
+      <div class="detail-footer">
+        <button class="btn btn-accent" id="detail-cart-btn" onclick="addToCartFromDetail()">Ajouter au panier</button>
+        <button class="btn btn-ghost" id="btn-close-detail">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================
+     JAVASCRIPT
+============================= -->
+<script>
+/* ===== DATA ===== */
+const DEFAULT_PRODUCTS = [
+  {
+    id: 1,
+    name: "iPhone 15 Pro Max",
+    cat: "smartphone",
+    price: 875000,
+    desc: "L'iPhone 15 Pro Max avec puce A17 Pro, titane aérospatial, caméra 48MP avec téléobjectif 5x et écran Super Retina XDR 6,7\".",
+    img: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&q=80",
+    isNew: true
+  },
+  {
+    id: 2,
+    name: "Samsung Galaxy S24 Ultra",
+    cat: "smartphone",
+    price: 820000,
+    desc: "Galaxy S24 Ultra avec stylet S Pen intégré, appareil photo 200MP, écran Dynamic AMOLED 6,8\" et IA Galaxy.",
+    img: "https://images.unsplash.com/photo-1706744403914-f01d4d9c3513?w=600&q=80",
+    isNew: true
+  },
+  {
+    id: 3,
+    name: "Sony Alpha A7 IV",
+    cat: "photo",
+    price: 1450000,
+    desc: "Hybride plein format 33MP avec autofocus par IA, stabilisation 5 axes, vidéo 4K 60fps — idéal pour professionnels.",
+    img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80",
+    isNew: false
+  },
+  {
+    id: 4,
+    name: "Canon EOS R6 Mark II",
+    cat: "photo",
+    price: 1280000,
+    desc: "Capteur CMOS 24,2MP, autofocus Eye/Body/Animal AF, rafale 40i/s et vidéo 6K RAW. Polyvalence absolue.",
+    img: "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?w=600&q=80",
+    isNew: false
+  },
+  {
+    id: 5,
+    name: "MacBook Pro M3 14\"",
+    cat: "pc",
+    price: 1190000,
+    desc: "Puce Apple M3 Pro, écran Liquid Retina XDR ProMotion 120Hz, 18 Go RAM unifiée, autonomie exceptionnelle.",
+    img: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80",
+    isNew: true
+  },
+  {
+    id: 6,
+    name: "Dell XPS 15 9530",
+    cat: "pc",
+    price: 980000,
+    desc: "Intel Core i7-13700H, 16 Go DDR5, 512 Go NVMe, écran OLED 3,5K tactile 60Hz. Design fin et puissant.",
+    img: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80",
+    isNew: false
+  },
+  {
+    id: 7,
+    name: "AMD Ryzen 9 7950X",
+    cat: "cpu",
+    price: 390000,
+    desc: "16 cœurs / 32 threads, 4,5 GHz base (5,7 GHz boost), 80 Mo cache L3 — le processeur ultime pour création et jeu.",
+    img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&q=80",
+    isNew: false
+  },
+  {
+    id: 8,
+    name: "Intel Core i9-13900K",
+    cat: "cpu",
+    price: 360000,
+    desc: "24 cœurs hybrides (8P+16E), 5,8 GHz Boost, compatible DDR5 — roi des benchmarks gaming et multithread.",
+    img: "https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=600&q=80",
+    isNew: false
+  },
+  {
+    id: 9,
+    name: "iPad Pro M2 12.9\"",
+    cat: "tablette",
+    price: 720000,
+    desc: "Puce M2, écran Liquid Retina XDR miniLED, compatible Apple Pencil 2 et clavier Magic Keyboard. Tablette pro.",
+    img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80",
+    isNew: false
+  },
+  {
+    id: 10,
+    name: "Samsung Galaxy Tab S9 Ultra",
+    cat: "tablette",
+    price: 650000,
+    desc: "Écran AMOLED 14,6\", Snapdragon 8 Gen 2, 12 Go RAM, stylus S Pen inclus. La tablette Android premium.",
+    img: "https://images.unsplash.com/photo-1587033411391-5d9e51cce126?w=600&q=80",
+    isNew: true
+  },
+  {
+    id: 11,
+    name: "Nikon Z8",
+    cat: "photo",
+    price: 1850000,
+    desc: "45,7 MP plein format BSI-CMOS, vidéo 8K RAW interne, double slot CFexpress/SD, boîtier robuste pro.",
+    img: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80",
+    isNew: true
+  },
+  {
+    id: 12,
+    name: "Sony WH-1000XM5",
+    cat: "accessoire",
+    price: 185000,
+    desc: "Casque ANC leader du marché, 30h d'autonomie, son Hi-Res Wireless, charge rapide 3 min = 3h d'écoute.",
+    img: "https://images.unsplash.com/photo-1545127398-14699f92334b?w=600&q=80",
+    isNew: false
+  },
+  {
+    id: 13,
+    name: "PC Gamer ASUS ROG",
+    cat: "pc",
+    price: 1350000,
+    desc: "RTX 4070 Ti, Intel i9-13900K, 32 Go DDR5, 2 To NVMe, Windows 11. Prêt pour les jeux les plus exigeants.",
+    img: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80",
+    isNew: false
+  },
+  {
+    id: 14,
+    name: "AMD Ryzen 5 7600X",
+    cat: "cpu",
+    price: 165000,
+    desc: "6 cœurs / 12 threads, 4,7 GHz (5,3 GHz boost), excellent rapport qualité-prix pour gaming et bureautique.",
+    img: "https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&q=80",
+    isNew: false
+  },
+  {
+    id: 15,
+    name: "Xiaomi 14 Ultra",
+    cat: "smartphone",
+    price: 595000,
+    desc: "Partenariat Leica, 4 objectifs 50MP, écran AMOLED 6,73\" LTPO 120Hz, Snapdragon 8 Gen 3, charge 90W.",
+    img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80",
+    isNew: true
+  }
+];
+
+/* ===== STATE ===== */
+let products = JSON.parse(localStorage.getItem('tp_products') || 'null') || DEFAULT_PRODUCTS;
+let cart = JSON.parse(localStorage.getItem('tp_cart') || '[]');
+let isAdmin = false;
+let currentFilter = 'all';
+let detailProduct = null;
+
+function saveProducts() { localStorage.setItem('tp_products', JSON.stringify(products)); }
+function saveCart() { localStorage.setItem('tp_cart', JSON.stringify(cart)); }
+
+/* ===== RENDER PRODUCTS ===== */
+function renderProducts() {
+  const grid = document.getElementById('products-grid');
+  const filtered = currentFilter === 'all' ? products : products.filter(p => p.cat === currentFilter);
+  
+  if (filtered.length === 0) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:60px 0">Aucun produit dans cette catégorie.</p>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" onclick="openDetail(${p.id})">
+      <span class="badge-cat">${catLabel(p.cat)}</span>
+      ${p.isNew ? '<span class="badge-new">NOUVEAU</span>' : ''}
+      <img class="product-img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80'" />
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-footer">
+          <div class="product-price">${fmtPrice(p.price)} <small>FCFA</small></div>
+          <button class="btn-cart" onclick="event.stopPropagation();addToCart(${p.id})">+ Panier</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ===== RENDER ADMIN LIST ===== */
+function renderAdminList() {
+  const list = document.getElementById('admin-products-list');
+  document.getElementById('admin-count').textContent = products.length;
+  list.innerHTML = products.map(p => `
+    <div class="admin-product-row">
+      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80'" />
+      <div class="info">
+        <span>${p.name}</span>
+        <small>${catLabel(p.cat)} ${p.isNew ? '• NOUVEAU' : ''}</small>
+      </div>
+      <span class="price">${fmtPrice(p.price)} FCFA</span>
+      <button class="btn-del" onclick="deleteProduct(${p.id})">🗑 Supprimer</button>
+    </div>
+  `).join('') || '<p style="color:var(--text-muted);text-align:center;padding:24px">Aucun produit.</p>';
+}
+
+/* ===== DETAIL MODAL ===== */
+function openDetail(id) {
+  detailProduct = products.find(p => p.id === id);
+  if (!detailProduct) return;
+  document.getElementById('detail-img').src = detailProduct.img;
+  document.getElementById('detail-name').textContent = detailProduct.name;
+  document.getElementById('detail-price').textContent = fmtPrice(detailProduct.price) + ' FCFA';
+  document.getElementById('detail-desc').textContent = detailProduct.desc;
+  document.getElementById('detail-cat').textContent = catLabel(detailProduct.cat);
+  openModal('detail-modal');
+}
+
+function addToCartFromDetail() {
+  if (detailProduct) { addToCart(detailProduct.id); closeModal('detail-modal'); }
+}
+
+/* ===== CART ===== */
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const existing = cart.find(x => x.id === id);
+  if (existing) existing.qty++;
+  else cart.push({ id: p.id, name: p.name, price: p.price, img: p.img, qty: 1 });
+  saveCart();
+  updateCartBadge();
+  toast('success', `✅ ${p.name} ajouté au panier`);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(x => x.id !== id);
+  saveCart(); updateCartBadge(); renderCart();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(x => x.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) { removeFromCart(id); return; }
+  saveCart(); renderCart();
+}
+
+function renderCart() {
+  const body = document.getElementById('cart-body');
+  const footer = document.getElementById('cart-footer');
+  if (cart.length === 0) {
+    body.innerHTML = '<div class="cart-empty">Votre panier est vide 🛒</div>';
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  body.innerHTML = cart.map(i => `
+    <div class="cart-item">
+      <img src="${i.img}" alt="${i.name}" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80'" />
+      <div class="cart-item-info">
+        <div class="cart-item-name">${i.name}</div>
+        <div class="cart-item-price">${fmtPrice(i.price)} FCFA</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button>
+          <span style="font-size:.9rem;font-weight:700">${i.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${i.id},1)">+</button>
+        </div>
+      </div>
+      <button class="cart-remove" onclick="removeFromCart(${i.id})">🗑</button>
+    </div>
+  `).join('');
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  document.getElementById('cart-total').textContent = fmtPrice(total) + ' FCFA';
+}
+
+function updateCartBadge() {
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const wrap = document.getElementById('cart-badge-wrap');
+  const nav = document.getElementById('btn-open-cart');
+  if (count > 0) {
+    wrap.style.display = 'inline-block';
+    document.getElementById('cart-count').textContent = count;
+    nav.textContent = `🛒 Panier (${count})`;
+  } else {
+    wrap.style.display = 'none';
+    nav.textContent = '🛒 Panier';
+  }
+}
+
+function placeOrder() {
+  toast('success', '🎉 Commande envoyée ! Nous vous contacterons sous peu.');
+  cart = [];
+  saveCart(); updateCartBadge(); renderCart();
+  closeCart();
+}
+
+/* ===== ADMIN ===== */
+const ADMIN_CREDS = { user: 'admin', pass: 'techpro2024' };
+
+function loginAdmin() {
+  const u = document.getElementById('login-user').value.trim();
+  const p = document.getElementById('login-pass').value;
+  if (u === ADMIN_CREDS.user && p === ADMIN_CREDS.pass) {
+    isAdmin = true;
+    closeModal('login-modal');
+    document.getElementById('admin-bar').classList.add('active');
+    document.getElementById('btn-open-login').textContent = '🔐 Admin ✓';
+    toast('success', '✅ Connecté en tant qu\'admin');
+    renderAdminList();
+  } else {
+    document.getElementById('login-error').classList.add('show');
+  }
+}
+
+function logoutAdmin() {
+  isAdmin = false;
+  document.getElementById('admin-bar').classList.remove('active');
+  document.getElementById('admin-panel').classList.remove('active');
+  document.getElementById('btn-open-login').textContent = '⚙ Admin';
+  toast('', 'Déconnecté de l\'administration');
+}
+
+function deleteProduct(id) {
+  if (!confirm('Supprimer ce produit ?')) return;
+  products = products.filter(p => p.id !== id);
+  saveProducts(); renderProducts(); renderAdminList();
+  toast('', 'Produit supprimé');
+}
+
+document.getElementById('ap-submit').addEventListener('click', () => {
+  const name = document.getElementById('ap-name').value.trim();
+  const cat  = document.getElementById('ap-cat').value;
+  const price = parseInt(document.getElementById('ap-price').value);
+  const img  = document.getElementById('ap-img').value.trim();
+  const desc = document.getElementById('ap-desc').value.trim();
+  const isNew = document.getElementById('ap-new').checked;
+
+  if (!name || !price || !img || !desc) { toast('danger', '⚠ Tous les champs sont requis'); return; }
+
+  const id = Date.now();
+  products.unshift({ id, name, cat, price, img, desc, isNew });
+  saveProducts(); renderProducts(); renderAdminList();
+  toast('success', `✅ "${name}" ajouté avec succès`);
+
+  // Reset form
+  ['ap-name','ap-price','ap-img','ap-desc'].forEach(f => document.getElementById(f).value = '');
+  document.getElementById('ap-new').checked = false;
+});
+
+/* ===== CATEGORY FILTER ===== */
+document.getElementById('cat-bar').addEventListener('click', e => {
+  const btn = e.target.closest('.cat-btn');
+  if (!btn) return;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = btn.dataset.cat;
+  renderProducts();
+});
+
+/* ===== MODAL HELPERS ===== */
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function openCart() {
+  renderCart();
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-panel').classList.add('open');
+}
+function closeCart() {
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-panel').classList.remove('open');
+}
+
+/* ===== TOAST ===== */
+function toast(type, msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' ' + type : '');
+  clearTimeout(t._to);
+  t._to = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ===== UTILS ===== */
+function fmtPrice(n) { return n.toLocaleString('fr-FR'); }
+function catLabel(c) {
+  return { smartphone:'Smartphone', photo:'Appareil Photo', pc:'PC & Laptop', cpu:'Processeur', tablette:'Tablette', accessoire:'Accessoire' }[c] || c;
+}
+
+/* ===== EVENT LISTENERS ===== */
+document.getElementById('btn-open-cart').addEventListener('click', openCart);
+document.getElementById('btn-close-cart').addEventListener('click', closeCart);
+document.getElementById('cart-overlay').addEventListener('click', closeCart);
+
+document.getElementById('btn-open-login').addEventListener('click', () => {
+  if (isAdmin) { document.getElementById('admin-panel').classList.toggle('active'); return; }
+  openModal('login-modal');
+});
+document.getElementById('btn-close-login').addEventListener('click', () => closeModal('login-modal'));
+document.getElementById('btn-login').addEventListener('click', loginAdmin);
+document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') loginAdmin(); });
+
+document.getElementById('btn-logout').addEventListener('click', logoutAdmin);
+document.getElementById('btn-admin-panel').addEventListener('click', () => {
+  document.getElementById('admin-panel').classList.toggle('active');
+  document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+document.getElementById('btn-close-detail').addEventListener('click', () => closeModal('detail-modal'));
+document.getElementById('detail-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('detail-modal')) closeModal('detail-modal');
+});
+document.getElementById('login-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('login-modal')) closeModal('login-modal');
+});
+
+/* ===== INIT ===== */
+renderProducts();
+updateCartBadge();
+</script>
+</body>
+</html>
